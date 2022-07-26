@@ -1,0 +1,8 @@
+.main {
+  display: grid;
+  grid-template-columns: 2fr 5fr 3fr;
+
+  .side-info-container {
+    padding-top: 14px;
+  }
+}
