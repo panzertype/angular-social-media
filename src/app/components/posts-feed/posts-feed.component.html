@@ -2,7 +2,6 @@
   <ng-container *ngIf="infinite | async as posts">
     <cdk-virtual-scroll-viewport
       itemSize="700"
-      appendOnly
       (scrolledIndexChange)="nextBatch($event, posts[posts.length - 1].id)"
     >
       <app-post
