@@ -1,16 +1,15 @@
 <div class="posts-feed">
-  <!-- <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post> -->
   <ng-container *ngIf="infinite | async as posts">
     <cdk-virtual-scroll-viewport
-      itemSize="686"
+      itemSize="700"
+      appendOnly
       (scrolledIndexChange)="nextBatch($event, posts[posts.length - 1].id)"
     >
       <app-post
         *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
         [post]="post"
       ></app-post>
-
-      <div *ngIf="theEnd" style="background-color: red; height: 100px"></div>
+      <mat-spinner class="spinner" *ngIf="theEnd"></mat-spinner>
     </cdk-virtual-scroll-viewport>
   </ng-container>
 </div>

@@ -41,14 +41,11 @@ export class PostsFeedComponent implements OnInit {
   }
 
   nextBatch(e: any, offset: number) {
-    if (this.theEnd) {
-      return;
-    }
-
     const end = this.viewport.getRenderedRange().end;
     const total = this.viewport.getDataLength();
     console.log(`${end}, '>=', ${total}`);
     if (end === total) {
+      this.theEnd = true;
       this.offset.next(offset);
     }
   }
