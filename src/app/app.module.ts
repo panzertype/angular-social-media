@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,6 +38,8 @@ import { SideInfoComponent } from './components/side-info/side-info.component';
     MatIconModule,
     MatCardModule,
     MatListModule,
+    HttpClientModule,
+    ScrollingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

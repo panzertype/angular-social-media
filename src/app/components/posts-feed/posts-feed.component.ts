@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { PostsService } from './../../services/posts.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import IPost from 'src/app/models/interfaces/IPost';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { map, tap, scan, mergeMap, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts-feed',
@@ -6,9 +11,51 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./posts-feed.component.scss'],
 })
 export class PostsFeedComponent implements OnInit {
-  constructor() {}
+  @ViewChild(CdkVirtualScrollViewport)
+  viewport!: CdkVirtualScrollViewport;
 
-  posts = [1, 2, 3, 4];
+  batch = 10;
+  theEnd = false;
+
+  offset = new BehaviorSubject(0);
+  infinite!: Observable<any[]>;
+
+  posts: IPost[] = [];
+  posts$!: Observable<IPost[]>;
+
+  constructor(public postsService: PostsService) {
+    const batchMap = this.offset.pipe(
+      throttleTime(500),
+      mergeMap((n) => this.getBatch(n)),
+      scan((acc: IPost[], batch) => {
+        return [...acc, ...batch];
+      }, [])
+    );
+
+    this.infinite = batchMap.pipe(map((v) => Object.values(v)));
+  }
+
+  getBatch(offset: number) {
+    console.log(offset);
+    return this.postsService.getPosts(offset, this.batch);
+  }
+
+  nextBatch(e: any, offset: number) {
+    if (this.theEnd) {
+      return;
+    }
+
+    const end = this.viewport.getRenderedRange().end;
+    const total = this.viewport.getDataLength();
+    console.log(`${end}, '>=', ${total}`);
+    if (end === total) {
+      this.offset.next(offset);
+    }
+  }
+
+  trackByIdx(i: any) {
+    return i;
+  }
 
   ngOnInit(): void {}
 }
