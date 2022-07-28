@@ -10,12 +10,13 @@
     <mat-card-title>{{ post?.title?.slice(0, 7) }}</mat-card-title>
     <mat-card-subtitle>{{ post?.title?.slice(7, 12) }}</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    width="502px"
-    height="502px"
-    [src]="'https://picsum.photos/seed/' + post?.url?.slice(-6) + '/502/502'"
-  />
+  <div class="image-container">
+    <img
+      mat-card-image
+      style="margin-top: 0 !important"
+      [src]="'https://picsum.photos/seed/' + post?.url?.slice(-6) + '/502/502'"
+    />
+  </div>
   <mat-card-content>
     <p>
       {{ post?.title }}
