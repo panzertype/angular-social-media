@@ -5,4 +5,24 @@
   .side-info-container {
     padding-top: 14px;
   }
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 3fr 7fr;
+
+    .side-info-container {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 10fr;
+
+    .side-info-container {
+      display: none;
+    }
+
+    .navigation-container {
+      display: none;
+    }
+  }
 }

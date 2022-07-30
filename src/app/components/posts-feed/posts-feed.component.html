@@ -1,7 +1,7 @@
-<div class="posts-feed">
+<div class="posts-feed" id="#posts-feed" #list>
   <ng-container *ngIf="infinite | async as posts">
     <cdk-virtual-scroll-viewport
-      itemSize="700"
+      [itemSize]="itemSize"
       (scrolledIndexChange)="nextBatch($event, posts[posts.length - 1].id)"
     >
       <app-post
