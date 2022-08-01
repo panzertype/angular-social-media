@@ -61,7 +61,7 @@ export class PostsFeedComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewChecked(): void {
+  ngAfterContentChecked(): void {
     if (this.list?.nativeElement?.children[0]?.children[0]?.children[0]) {
       const a = this.list.nativeElement.children[0].children[0].children[0];
       const b = a.getBoundingClientRect().height;
